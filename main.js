@@ -264,4 +264,31 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setInterval(updateDigitalClock, 1000);
   updateDigitalClock();
+  document.addEventListener("keydown", (e) => {
+    if (e.target.tagName === "INPUT") return; // ignore typing in text boxes
+
+    switch (e.code) {
+      case "Space":
+        e.preventDefault();
+        mainButton.dataset.action === "start" ? startTimer() : stopTimer();
+        break;
+
+      case "ArrowRight":
+        changeMode(1); // next mode
+        break;
+
+      case "ArrowLeft":
+        changeMode(-1); // previous mode
+        break;
+    }
+  });
+
+  function changeMode(delta) {
+    const modes = ["pomodoro", "shortBreak", "longBreak"];
+    const next =
+      (modes.indexOf(timer.mode) + delta + modes.length) % modes.length;
+    timer.mode = modes[next];
+    switchMode(timer.mode);
+    stopTimer();
+  }
 });
