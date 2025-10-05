@@ -264,6 +264,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   setInterval(updateDigitalClock, 1000);
   updateDigitalClock();
+  
   document.addEventListener("keydown", (e) => {
     if (e.target.tagName === "INPUT") return; // ignore typing in text boxes
 
@@ -291,4 +292,111 @@ document.addEventListener("DOMContentLoaded", () => {
     switchMode(timer.mode);
     stopTimer();
   }
+
+  // === Enhanced Music Panel Logic ===
+  const musicToggle = document.getElementById("js-music-toggle");
+  const volumeToggle = document.getElementById("js-volume-toggle");
+  const musicOptions = document.getElementById("js-music-options");
+  const volumeControl = document.getElementById("js-volume-control");
+  const volumeSlider = document.getElementById("js-volume-slider");
+  const audioPlayer = document.getElementById("js-audio-player");
+  
+  let currentTrack = null;
+  let isExpanded = false;
+  let isVolumeVisible = false;
+
+  // Your local audio files - update these paths to match your file locations
+  const tracks = {
+    1: "Hollow Knight Lofi.mp3", // Replace with your first music file
+    2: "Halo Lofi.mp3", // Replace with your second music file
+    3: "Star Wars Lofi.mp3", // Replace with your third music file
+    4: "Silksong Lofi.mp3", // Replace with your fourth music file
+  };
+
+  // Set initial volume
+  audioPlayer.volume = 0.5;
+  volumeSlider.value = 50;
+
+  // Toggle music panel expansion
+  musicToggle.addEventListener("click", () => {
+    playSound(buttonSound);
+    isExpanded = !isExpanded;
+    
+    if (isExpanded) {
+      musicOptions.classList.add("show");
+      volumeToggle.classList.add("show");
+      musicToggle.classList.add("active");
+    } else {
+      musicOptions.classList.remove("show");
+      volumeToggle.classList.remove("show");
+      volumeControl.classList.remove("show");
+      isVolumeVisible = false;
+      musicToggle.classList.remove("active");
+    }
+  });
+
+  // Toggle volume slider visibility
+  volumeToggle.addEventListener("click", () => {
+    playSound(buttonSound);
+    isVolumeVisible = !isVolumeVisible;
+    
+    if (isVolumeVisible) {
+      volumeControl.classList.add("show");
+      volumeToggle.classList.add("active");
+    } else {
+      volumeControl.classList.remove("show");
+      volumeToggle.classList.remove("active");
+    }
+  });
+
+  // Handle playlist button clicks
+  document.querySelectorAll(".music-option").forEach(btn => {
+    btn.addEventListener("click", () => {
+      playSound(buttonSound);
+      const trackId = btn.dataset.track;
+      
+      // If clicking the same track that's playing, pause it
+      if (currentTrack === trackId && !audioPlayer.paused) {
+        audioPlayer.pause();
+        btn.classList.remove("playing");
+        currentTrack = null;
+      } else {
+        // Remove playing state from all buttons
+        document.querySelectorAll(".music-option").forEach(b => 
+          b.classList.remove("playing")
+        );
+        
+        // Play the new track
+        audioPlayer.src = tracks[trackId];
+        audioPlayer.loop = true; // Loop the playlist
+        audioPlayer.play();
+        btn.classList.add("playing");
+        currentTrack = trackId;
+      }
+    });
+  });
+
+  // Volume slider control
+  volumeSlider.addEventListener("input", (e) => {
+    audioPlayer.volume = e.target.value / 100;
+    
+    // Update volume icon based on level
+    const volumeIcon = volumeToggle.querySelector("i");
+    const volumeLevel = e.target.value;
+    
+    if (volumeLevel == 0) {
+      volumeIcon.className = "fas fa-volume-mute";
+    } else if (volumeLevel < 50) {
+      volumeIcon.className = "fas fa-volume-down";
+    } else {
+      volumeIcon.className = "fas fa-volume-up";
+    }
+  });
+
+  // Handle audio ending (in case loop fails)
+  audioPlayer.addEventListener("ended", () => {
+    if (currentTrack) {
+      audioPlayer.play(); // Restart the track
+    }
+  });
 });

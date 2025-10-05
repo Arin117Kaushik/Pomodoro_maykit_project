@@ -71,7 +71,53 @@
         </div>
         <button class="fullscreen-button" id="js-fullscreen">⛶</button>
       </div>
+
+      <!-- 🎵 Enhanced Music Panel -->
+      <div class="music-panel" id="js-music-panel">
+        <!-- Main music toggle button -->
+        <button id="js-music-toggle" class="music-button">
+          <i class="fas fa-music"></i>
+        </button>
+        
+        <!-- Volume Control Button -->
+        <button id="js-volume-toggle" class="music-button volume-button">
+          <i class="fas fa-volume-up"></i>
+        </button>
+        
+        <!-- Volume Control Slider -->
+        <div class="volume-control" id="js-volume-control">
+          <input 
+            type="range" 
+            id="js-volume-slider" 
+            class="volume-slider" 
+            min="0" 
+            max="100" 
+            value="50"
+          >
+        </div>
+        
+        <!-- 4 Playlist Buttons with Nature Icons -->
+        <div class="music-options" id="js-music-options">
+          <button class="music-option" data-track="1" title="Playlist 1">
+            <i class="fas fa-water"></i>
+          </button>
+          <button class="music-option" data-track="2" title="Playlist 2">
+            <i class="fas fa-leaf"></i>
+          </button>
+          <button class="music-option" data-track="3" title="Playlist 3">
+            <i class="fas fa-fire"></i>
+          </button>
+          <button class="music-option" data-track="4" title="Playlist 4">
+            <i class="fas fa-wind"></i>
+          </button>
+        </div>
+        
+        <!-- Audio Player -->
+        <audio id="js-audio-player"></audio>
+      </div>
+      <!-- end music panel -->
     </main>
+
     <div class="hidden">
       <audio id="button-sound" src="button-sound.mp3"></audio>
       <audio id="pomodoro-end-sound" src="break.wav"></audio>

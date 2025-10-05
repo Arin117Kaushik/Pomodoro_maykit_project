@@ -25,6 +25,269 @@ html {
   --longBreak-background: url("bg3.png");
 }
 
+/* === Enhanced Music Panel Styles === */
+.music-panel {
+  position: fixed;
+  top: 30%;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  z-index: 1000;
+}
+
+.music-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  font-size: 20px;
+  color: #333;
+}
+
+.music-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+}
+
+.music-button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Volume Button Styling */
+.volume-button {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.8);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.volume-button.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  pointer-events: auto;
+  animation: fallIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.05s forwards;
+}
+
+.volume-button.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+/* Volume Control Slider */
+.volume-control {
+  opacity: 0;
+  transform: translateX(-20px) scale(0.8);
+  pointer-events: none;
+  transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  right: 70px;
+  top: 68px;
+}
+
+.volume-control.show {
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  pointer-events: auto;
+  animation: slideIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.volume-control.hide {
+  animation: slideOut 0.4s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.7);
+  }
+  60% {
+    transform: translateX(5px) scale(1.05);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+}
+
+@keyframes slideOut {
+  0% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.7);
+  }
+}
+
+.volume-slider {
+  width: 120px;
+  height: 6px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: linear-gradient(to right, #667eea 0%, #764ba2 100%);
+  outline: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: white;
+  border: 2px solid #667eea;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: white;
+  border: 2px solid #667eea;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s;
+}
+
+/* Music Options Container */
+.music-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  opacity: 0;
+  transform: translateY(-20px);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+.music-options.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Individual Playlist Buttons with Staggered Animation */
+.music-option {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  font-size: 20px;
+  color: #555;
+  transition: all 0.3s ease;
+  opacity: 0;
+  transform: translateY(-30px) scale(0.5);
+}
+
+/* Falling animation for each button */
+.music-options.show .music-option:nth-child(1) {
+  animation: fallIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.1s forwards;
+}
+
+.music-options.show .music-option:nth-child(2) {
+  animation: fallIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.2s forwards;
+}
+
+.music-options.show .music-option:nth-child(3) {
+  animation: fallIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.3s forwards;
+}
+
+.music-options.show .music-option:nth-child(4) {
+  animation: fallIn 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55) 0.4s forwards;
+}
+
+@keyframes fallIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px) scale(0.5) rotate(-10deg);
+  }
+  50% {
+    transform: translateY(5px) scale(1.05) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(0deg);
+  }
+}
+
+.music-option:hover {
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  border-color: #667eea;
+}
+
+/* Playing state styling */
+.music-option.playing {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: 3px solid #fff;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 6px rgba(102, 126, 234, 0.8), 0 5px 20px rgba(102, 126, 234, 0.8);
+  }
+}
+
+/* Icon color variations */
+.music-option[data-track="1"] i {
+  color: #3498db;
+}
+
+.music-option[data-track="2"] i {
+  color: #27ae60;
+}
+
+.music-option[data-track="3"] i {
+  color: #e74c3c;
+}
+
+.music-option[data-track="4"] i {
+  color: #95a5a6;
+}
+
+.music-option.playing i {
+  color: white;
+}
+
+.hidden { display: none !important; }
+
 body {
   transition: background-image 0.5s ease-in-out; /* Add transition */
 }
@@ -426,7 +689,30 @@ button:active {
   font-size: 1.4rem;
   margin-bottom: -60px;
 }
+
+/* Responsive adjustments for music panel */
 @media (max-width: 768px) {
+  .music-panel {
+    right: 15px;
+    top: 25%;
+  }
+  
+  .music-button {
+    width: 48px;
+    height: 48px;
+    font-size: 18px;
+  }
+  
+  .music-option {
+    width: 42px;
+    height: 42px;
+    font-size: 18px;
+  }
+  
+  .volume-slider {
+    width: 80px;
+  }
+
   .timer {
     padding: 30px;
   }
@@ -491,6 +777,23 @@ button:active {
 }
 
 @media (max-width: 480px) {
+  .music-panel {
+    right: 10px;
+    top: 20%;
+  }
+  
+  .music-button {
+    width: 44px;
+    height: 44px;
+    font-size: 16px;
+  }
+  
+  .music-option {
+    width: 38px;
+    height: 38px;
+    font-size: 16px;
+  }
+
   .timer {
     padding: 20px;
   }
