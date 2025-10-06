@@ -305,12 +305,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let isExpanded = false;
   let isVolumeVisible = false;
 
-  // Your local audio files - update these paths to match your file locations
+  // Dropbox hosted audio files
   const tracks = {
-    1: "Hollow Knight Lofi.mp3", // Replace with your first music file
-    2: "Halo Lofi.mp3", // Replace with your second music file
-    3: "Star Wars Lofi.mp3", // Replace with your third music file
-    4: "Silksong Lofi.mp3", // Replace with your fourth music file
+    1: "https://www.dropbox.com/scl/fi/gq0idwlqgjo8y6edm9mhd/Halo-Lofi.mp3?rlkey=2ajvkpfbepti9j2f9juuuzt1t&st=9oh9u0r7&dl=1",
+    2: "https://www.dropbox.com/scl/fi/1g2h2n2y6ymwnyon1pyj9/Hollow-Knight-Lofi.mp3?rlkey=lvk3pvptnj9j8zxhfk108awjv&st=wobtefpw&dl=1",
+    3: "https://www.dropbox.com/scl/fi/ndwhh2jte6mldncbhsmyt/Silksong-Lofi.mp3?rlkey=rxh3ezhg0xwt54ry1djsm5siw&st=l22nffyg&dl=1",
+    4: "https://www.dropbox.com/scl/fi/6ziirjvgzlktyf8i3c2bg/Star-Wars-Lofi.mp3?rlkey=ih23mb85xpfn38gs3waawm6ht&st=yd06p19c&dl=1",
   };
 
   // Set initial volume
@@ -323,15 +323,30 @@ document.addEventListener("DOMContentLoaded", () => {
     isExpanded = !isExpanded;
     
     if (isExpanded) {
+      // Expand animation
+      musicOptions.classList.remove("hide");
       musicOptions.classList.add("show");
+      volumeToggle.classList.remove("hide");
       volumeToggle.classList.add("show");
       musicToggle.classList.add("active");
     } else {
+      // Collapse animation
       musicOptions.classList.remove("show");
+      musicOptions.classList.add("hide");
       volumeToggle.classList.remove("show");
+      volumeToggle.classList.add("hide");
       volumeControl.classList.remove("show");
+      volumeControl.classList.add("hide");
       isVolumeVisible = false;
       musicToggle.classList.remove("active");
+      volumeToggle.classList.remove("active");
+      
+      // Remove hide class after animation completes
+      setTimeout(() => {
+        musicOptions.classList.remove("hide");
+        volumeToggle.classList.remove("hide");
+        volumeControl.classList.remove("hide");
+      }, 600);
     }
   });
 
@@ -341,11 +356,18 @@ document.addEventListener("DOMContentLoaded", () => {
     isVolumeVisible = !isVolumeVisible;
     
     if (isVolumeVisible) {
+      volumeControl.classList.remove("hide");
       volumeControl.classList.add("show");
       volumeToggle.classList.add("active");
     } else {
       volumeControl.classList.remove("show");
+      volumeControl.classList.add("hide");
       volumeToggle.classList.remove("active");
+      
+      // Remove hide class after animation completes
+      setTimeout(() => {
+        volumeControl.classList.remove("hide");
+      }, 500);
     }
   });
 
