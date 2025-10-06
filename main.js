@@ -305,12 +305,12 @@ document.addEventListener("DOMContentLoaded", () => {
   let isExpanded = false;
   let isVolumeVisible = false;
 
-  // Dropbox hosted audio files
+  // Dropbox hosted audio files (using raw parameter)
   const tracks = {
-    1: "https://www.dropbox.com/scl/fi/gq0idwlqgjo8y6edm9mhd/Halo-Lofi.mp3?rlkey=2ajvkpfbepti9j2f9juuuzt1t&st=9oh9u0r7&dl=1",
-    2: "https://www.dropbox.com/scl/fi/1g2h2n2y6ymwnyon1pyj9/Hollow-Knight-Lofi.mp3?rlkey=lvk3pvptnj9j8zxhfk108awjv&st=wobtefpw&dl=1",
-    3: "https://www.dropbox.com/scl/fi/ndwhh2jte6mldncbhsmyt/Silksong-Lofi.mp3?rlkey=rxh3ezhg0xwt54ry1djsm5siw&st=l22nffyg&dl=1",
-    4: "https://www.dropbox.com/scl/fi/6ziirjvgzlktyf8i3c2bg/Star-Wars-Lofi.mp3?rlkey=ih23mb85xpfn38gs3waawm6ht&st=yd06p19c&dl=1",
+    1: "https://www.dropbox.com/scl/fi/gq0idwlqgjo8y6edm9mhd/Halo-Lofi.mp3?rlkey=2ajvkpfbepti9j2f9juuuzt1t&st=9oh9u0r7&raw=1",
+    2: "https://www.dropbox.com/scl/fi/1g2h2n2y6ymwnyon1pyj9/Hollow-Knight-Lofi.mp3?rlkey=lvk3pvptnj9j8zxhfk108awjv&st=wobtefpw&raw=1",
+    3: "https://www.dropbox.com/scl/fi/ndwhh2jte6mldncbhsmyt/Silksong-Lofi.mp3?rlkey=rxh3ezhg0xwt54ry1djsm5siw&st=l22nffyg&raw=1",
+    4: "https://www.dropbox.com/scl/fi/6ziirjvgzlktyf8i3c2bg/Star-Wars-Lofi.mp3?rlkey=ih23mb85xpfn38gs3waawm6ht&st=yd06p19c&raw=1",
   };
 
   // Set initial volume
